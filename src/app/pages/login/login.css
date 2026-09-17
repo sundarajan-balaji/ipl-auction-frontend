@@ -1,0 +1,749 @@
+:host {
+  display: block;
+}
+
+
+/* ─────────────────────────────────────────────
+   PAGE
+───────────────────────────────────────────── */
+
+.login-page {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: #07090b;
+  color: #f4f2ec;
+  font-family: 'Inter', sans-serif;
+}
+
+
+/* ─────────────────────────────────────────────
+   CINEMATIC BACKGROUND
+───────────────────────────────────────────── */
+
+.login-background {
+  position: absolute;
+  inset: -3%;
+
+  background-image:
+    url('https://images.unsplash.com/photo-1750716413381-1c9a0d94db84?auto=format&fit=crop&fm=jpg&q=80&w=2400');
+
+  background-size: cover;
+  background-position: center;
+
+  filter:
+    saturate(0.55)
+    contrast(1.08)
+    brightness(0.52);
+
+  transform: scale(1.02);
+
+  animation: cinematic-drift 18s ease-in-out infinite alternate;
+
+  z-index: 0;
+}
+
+
+.login-vignette {
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 6, 8, 0.92) 0%,
+      rgba(4, 6, 8, 0.65) 38%,
+      rgba(4, 6, 8, 0.78) 63%,
+      rgba(4, 6, 8, 0.97) 100%
+    );
+
+  z-index: 1;
+}
+
+
+.login-vignette::after {
+  content: '';
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 68% 40%,
+      rgba(255, 191, 76, 0.08),
+      transparent 32%
+    );
+}
+
+
+.login-grain {
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.055;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+
+  pointer-events: none;
+  z-index: 2;
+}
+
+
+/* ─────────────────────────────────────────────
+   HEADER
+───────────────────────────────────────────── */
+
+.login-header {
+  position: relative;
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 34px 5vw;
+}
+
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+
+.brand-mark {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.08em;
+}
+
+
+.brand-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+
+  font-size: 10px;
+  font-weight: 500;
+
+  line-height: 1.35;
+
+  letter-spacing: 0.3em;
+
+  color: rgba(255, 255, 255, 0.78);
+}
+
+
+.login-nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
+  font-size: 9px;
+  font-weight: 500;
+
+  letter-spacing: 0.27em;
+
+  color: rgba(255, 255, 255, 0.65);
+}
+
+
+.login-nav span {
+  white-space: nowrap;
+}
+
+
+.nav-line {
+  display: block;
+
+  width: 52px;
+  height: 1px;
+
+  margin-left: 2px;
+
+  background: rgba(255, 255, 255, 0.55);
+}
+
+
+/* ─────────────────────────────────────────────
+   CONTENT
+───────────────────────────────────────────── */
+
+.login-content {
+  position: relative;
+  z-index: 4;
+
+  min-height: calc(100svh - 150px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(400px, 0.85fr);
+
+  padding: 4vh 5vw 8vh;
+}
+
+
+/* ─────────────────────────────────────────────
+   HERO
+───────────────────────────────────────────── */
+
+.hero-copy {
+  align-self: center;
+
+  max-width: 760px;
+
+  padding-left: 2vw;
+
+  animation: reveal-up 0.9s ease-out both;
+}
+
+
+.season-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 22px;
+
+  color: #d8aa5a;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  letter-spacing: 0.34em;
+}
+
+
+.season-dot {
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #d8aa5a;
+
+  box-shadow: 0 0 15px rgba(216, 170, 90, 0.7);
+}
+
+
+.hero-copy h1 {
+  margin: 0;
+
+  font-family: 'Space Grotesk', sans-serif;
+
+  font-size: clamp(4.2rem, 7.3vw, 8.5rem);
+
+  font-weight: 750;
+
+  line-height: 0.88;
+
+  letter-spacing: -0.065em;
+
+  text-transform: uppercase;
+}
+
+
+.hero-copy h1 span {
+  color: #d9ad61;
+}
+
+
+.hero-rule {
+  width: 46px;
+  height: 2px;
+
+  margin: 30px 0 25px;
+
+  background: #d9ad61;
+
+  animation: line-grow 1.1s 0.45s ease-out both;
+}
+
+
+.hero-description {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.62);
+
+  font-size: 10px;
+  font-weight: 500;
+
+  line-height: 1.9;
+
+  letter-spacing: 0.32em;
+}
+
+
+/* ─────────────────────────────────────────────
+   LOGIN PANEL
+───────────────────────────────────────────── */
+
+.login-panel {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+
+  padding: 30px 0 30px 7vw;
+
+  animation: panel-reveal 1s 0.15s ease-out both;
+}
+
+
+.panel-inner {
+  width: min(100%, 500px);
+}
+
+
+.panel-eyebrow {
+  margin-bottom: 8px;
+
+  color: rgba(255, 255, 255, 0.52);
+
+  font-size: 10px;
+  font-weight: 500;
+
+  letter-spacing: 0.35em;
+}
+
+
+.panel-inner h2 {
+  margin: 0;
+
+  font-family: 'Space Grotesk', sans-serif;
+
+  font-size: clamp(3rem, 4vw, 4.8rem);
+
+  font-weight: 700;
+
+  line-height: 0.95;
+
+  letter-spacing: -0.055em;
+}
+
+
+.panel-accent {
+  width: 38px;
+  height: 2px;
+
+  margin: 25px 0 21px;
+
+  background: #d9ad61;
+}
+
+
+.panel-description {
+  margin: 0 0 34px;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 14px;
+
+  line-height: 1.6;
+}
+
+
+/* ─────────────────────────────────────────────
+   GOOGLE BUTTON
+───────────────────────────────────────────── */
+
+.google-button {
+  position: relative;
+
+  width: 100%;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: #f5f4f0;
+  color: #111315;
+
+  cursor: pointer;
+
+  font-family: 'Inter', sans-serif;
+
+  transition:
+    transform 180ms ease,
+    background 180ms ease,
+    box-shadow 180ms ease;
+}
+
+
+.google-button:hover {
+  background: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.28);
+}
+
+
+.google-button:active {
+  transform: translateY(0);
+}
+
+
+.google-icon {
+  display: grid;
+  place-items: center;
+
+  width: 24px;
+  height: 24px;
+}
+
+
+.google-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+
+.google-label {
+  margin-left: 15px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+.button-arrow {
+  margin-left: auto;
+
+  font-size: 21px;
+  line-height: 1;
+
+  transition: transform 180ms ease;
+}
+
+
+.google-button:hover .button-arrow {
+  transform: translateX(5px);
+}
+
+
+/* ─────────────────────────────────────────────
+   ACCESS NOTE
+───────────────────────────────────────────── */
+
+.security-divider {
+  width: 100%;
+  height: 1px;
+
+  margin: 28px 0;
+
+  background: rgba(255, 255, 255, 0.12);
+}
+
+
+.access-note {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 14px;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  font-size: 11px;
+
+  line-height: 1.7;
+}
+
+
+.lock-icon {
+  flex: 0 0 auto;
+
+  width: 17px;
+  height: 17px;
+
+  margin-top: 1px;
+}
+
+
+.lock-icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+
+.access-note strong,
+.access-note span {
+  display: block;
+}
+
+
+.access-note strong {
+  color: rgba(255, 255, 255, 0.67);
+
+  font-weight: 500;
+}
+
+
+/* ─────────────────────────────────────────────
+   QUOTE
+───────────────────────────────────────────── */
+
+.quote {
+  margin-top: clamp(70px, 9vh, 120px);
+}
+
+
+.quote p {
+  max-width: 410px;
+
+  margin: 0;
+
+  font-family: Georgia, 'Times New Roman', serif;
+
+  font-size: 17px;
+
+  font-style: italic;
+
+  line-height: 1.5;
+
+  color: rgba(255, 255, 255, 0.74);
+}
+
+
+.quote-rule {
+  width: 24px;
+  height: 2px;
+
+  margin: 17px 0 13px;
+
+  background: #d9ad61;
+}
+
+
+.quote span {
+  color: rgba(255, 255, 255, 0.38);
+
+  font-size: 8px;
+  font-weight: 500;
+
+  letter-spacing: 0.3em;
+}
+
+
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
+
+.login-footer {
+  position: absolute;
+
+  left: 5vw;
+  right: 5vw;
+  bottom: 28px;
+
+  z-index: 5;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  color: rgba(255, 255, 255, 0.35);
+
+  font-size: 8px;
+  font-weight: 500;
+
+  letter-spacing: 0.3em;
+}
+
+
+.footer-line {
+  height: 1px;
+  flex: 1;
+
+  max-width: 220px;
+
+  background: rgba(255, 255, 255, 0.16);
+}
+
+
+/* ─────────────────────────────────────────────
+   ANIMATIONS
+───────────────────────────────────────────── */
+
+@keyframes cinematic-drift {
+
+  from {
+    transform: scale(1.02) translate3d(-0.4%, 0, 0);
+  }
+
+  to {
+    transform: scale(1.06) translate3d(0.4%, -0.3%, 0);
+  }
+
+}
+
+
+@keyframes reveal-up {
+
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+@keyframes panel-reveal {
+
+  from {
+    opacity: 0;
+    transform: translateX(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+}
+
+
+@keyframes line-grow {
+
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 46px;
+  }
+
+}
+
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+
+  .login-content {
+    grid-template-columns: 1fr 0.9fr;
+  }
+
+  .login-panel {
+    padding-left: 5vw;
+  }
+
+  .login-nav {
+    gap: 18px;
+  }
+
+}
+
+
+@media (max-width: 800px) {
+
+  .login-header {
+    padding: 25px 24px;
+  }
+
+  .login-nav {
+    display: none;
+  }
+
+  .login-content {
+    min-height: auto;
+
+    display: block;
+
+    padding: 8vh 24px 130px;
+  }
+
+  .hero-copy {
+    padding-left: 0;
+
+    margin-bottom: 70px;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(3.6rem, 16vw, 6rem);
+  }
+
+  .login-panel {
+    border-left: 0;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+
+    padding: 50px 0 20px;
+  }
+
+  .login-footer {
+    left: 24px;
+    right: 24px;
+
+    bottom: 22px;
+
+    gap: 10px;
+
+    letter-spacing: 0.2em;
+  }
+
+  .login-footer span:nth-child(3),
+  .login-footer span:nth-child(5) {
+    display: none;
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  .brand-mark {
+    font-size: 25px;
+  }
+
+  .brand-name {
+    font-size: 8px;
+  }
+
+  .hero-copy h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero-description {
+    font-size: 8px;
+  }
+
+  .panel-inner h2 {
+    font-size: 3rem;
+  }
+
+  .google-button {
+    height: 58px;
+  }
+
+  .quote {
+    margin-top: 65px;
+  }
+
+  .quote p {
+    font-size: 15px;
+  }
+
+}

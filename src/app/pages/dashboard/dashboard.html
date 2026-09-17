@@ -1,0 +1,358 @@
+<section class="dashboard">
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-copy">
+
+      <span class="eyebrow">
+        AUCTION CONTROL CENTER
+      </span>
+
+      @if (authState.currentUser; as user) {
+        <h1>
+          GOOD EVENING,
+          <span>
+            {{ user.attributes.given_name | uppercase }}.
+          </span>
+        </h1>
+      }
+
+      <p class="hero-description">
+        Everything you need to follow the auction,
+        track your franchise and stay ahead of the room.
+      </p>
+
+    </div>
+
+    <div class="hero-status">
+      <span class="status-indicator"></span>
+      <span>SYSTEM OPERATIONAL</span>
+    </div>
+
+  </section>
+
+
+  <!-- ERROR -->
+  @if (hasError) {
+
+    <div class="error-state">
+      <strong>UNABLE TO LOAD AUCTION DATA</strong>
+      <span>
+        The backend could not be reached. Please try again.
+      </span>
+    </div>
+
+  }
+
+
+  @if (isLoading) {
+
+    <div class="loading-state">
+      LOADING AUCTION DATA...
+    </div>
+
+  } @else {
+
+
+    <!-- CURRENT AUCTION -->
+    <section class="auction-section">
+
+      <div class="section-heading">
+
+        <div>
+          <span class="section-index">01</span>
+          <span class="section-label">CURRENT AUCTION</span>
+        </div>
+
+        <span class="section-meta">
+          AUCTION FLOOR
+        </span>
+
+      </div>
+
+
+      @if (currentAuction; as auction) {
+
+        <div class="auction-card">
+
+          <div class="auction-card-main">
+
+            <div class="auction-status">
+
+              <span
+                class="status-dot"
+                [class.live]="auction.status === 'LIVE'"
+              ></span>
+
+              {{ auction.status }}
+
+            </div>
+
+            <h2>
+              {{ auction.name }}
+            </h2>
+
+            <p>
+              Season {{ auction.season }}.
+              @if (auction.status === 'LIVE') {
+                The auction is currently live.
+              } @else {
+                The auction floor is currently waiting to begin.
+              }
+            </p>
+
+          </div>
+
+
+          <div class="auction-card-action">
+
+            <span class="auction-label">
+              STARTING PURSE
+            </span>
+
+            <span class="auction-value">
+              ₹{{ auction.startingPurse }}
+            </span>
+
+            <button class="text-button">
+              VIEW AUCTION
+              <span>↗</span>
+            </button>
+
+          </div>
+
+        </div>
+
+      } @else {
+
+        <div class="empty-state auction-empty">
+
+          <div class="empty-marker">—</div>
+
+          <h3>NO AUCTION CREATED</h3>
+
+          <p>
+            There are currently no auctions available.
+            Once an auction is created, it will appear here.
+          </p>
+
+        </div>
+
+      }
+
+    </section>
+
+
+    <!-- PLATFORM METRICS -->
+    <section class="metrics-section">
+
+      <div class="section-heading">
+
+        <div>
+          <span class="section-index">02</span>
+          <span class="section-label">AUCTION OVERVIEW</span>
+        </div>
+
+      </div>
+
+
+      <div class="metrics-grid">
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            AUCTIONS
+          </span>
+
+          <strong class="metric-value">
+            {{ auctions.length }}
+          </strong>
+
+          <span class="metric-description">
+            Available auctions
+          </span>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            TEAMS
+          </span>
+
+          <strong class="metric-value">
+            {{ teamCount }}
+          </strong>
+
+          <span class="metric-description">
+            Registered franchises
+          </span>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            PLAYERS
+          </span>
+
+          <strong class="metric-value">
+            {{ playerCount }}
+          </strong>
+
+          <span class="metric-description">
+            Available players
+          </span>
+
+        </article>
+
+
+        <article class="metric-card">
+
+          <span class="metric-label">
+            AUCTION STATUS
+          </span>
+
+          <strong class="metric-value status-text">
+
+            @if (currentAuction) {
+              {{ currentAuction.status }}
+            } @else {
+              IDLE
+            }
+
+          </strong>
+
+          <span class="metric-description">
+            Current auction state
+          </span>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- LOWER GRID -->
+    <section class="lower-grid">
+
+
+      <!-- AUCTION SNAPSHOT -->
+      <div class="activity-panel">
+
+        <div class="section-heading">
+
+          <div>
+            <span class="section-index">03</span>
+            <span class="section-label">AUCTION SNAPSHOT</span>
+          </div>
+
+        </div>
+
+
+        @if (currentAuction; as auction) {
+
+          <div class="snapshot-card">
+
+            <div class="snapshot-row">
+              <span>STATUS</span>
+              <strong>{{ auction.status }}</strong>
+            </div>
+
+            <div class="snapshot-row">
+              <span>SEASON</span>
+              <strong>{{ auction.season }}</strong>
+            </div>
+
+            <div class="snapshot-row">
+              <span>BID INCREMENT</span>
+              <strong>₹{{ auction.bidIncrement }}</strong>
+            </div>
+
+            <div class="snapshot-row">
+              <span>CURRENT PLAYER</span>
+
+              <strong>
+                {{ auction.currentPlayerName ?? '—' }}
+              </strong>
+            </div>
+
+          </div>
+
+        } @else {
+
+          <div class="empty-state">
+
+            <div class="empty-marker">—</div>
+
+            <h3>NO AUCTION ACTIVITY</h3>
+
+            <p>
+              Auction events and bidding activity
+              will appear here.
+            </p>
+
+          </div>
+
+        }
+
+      </div>
+
+
+      <!-- QUICK ACTIONS -->
+      <div class="actions-panel">
+
+        <div class="section-heading">
+
+          <div>
+            <span class="section-index">04</span>
+            <span class="section-label">QUICK ACTIONS</span>
+          </div>
+
+        </div>
+
+
+        <div class="action-list">
+
+          <button class="action-item">
+            <span>
+              <small>01</small>
+              VIEW AUCTIONS
+            </span>
+
+            <span>↗</span>
+          </button>
+
+
+          <button class="action-item">
+            <span>
+              <small>02</small>
+              BROWSE PLAYERS
+            </span>
+
+            <span>↗</span>
+          </button>
+
+
+          <button class="action-item">
+            <span>
+              <small>03</small>
+              VIEW TEAMS
+            </span>
+
+            <span>↗</span>
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  }
+
+</section>

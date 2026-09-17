@@ -1,0 +1,103 @@
+<div class="app-shell">
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      <span class="brand-mark">IPL</span>
+      <span class="brand-name">AUCTION</span>
+    </div>
+
+    <nav class="navigation">
+
+      <div class="nav-section">
+        <span class="nav-label">Workspace</span>
+
+        <a class="nav-item active">
+          <span class="nav-icon">01</span>
+          <span>Overview</span>
+        </a>
+
+        <a class="nav-item">
+          <span class="nav-icon">02</span>
+          <span>Auctions</span>
+        </a>
+
+        <a class="nav-item">
+          <span class="nav-icon">03</span>
+          <span>Players</span>
+        </a>
+
+        <a class="nav-item">
+          <span class="nav-icon">04</span>
+          <span>Teams</span>
+        </a>
+      </div>
+
+      @if (authState.role === 'ROLE_ADMIN') {
+        <div class="nav-section admin-section">
+          <span class="nav-label">Administration</span>
+
+          <a class="nav-item">
+            <span class="nav-icon">05</span>
+            <span>Users</span>
+          </a>
+
+          <a class="nav-item">
+            <span class="nav-icon">06</span>
+            <span>Settings</span>
+          </a>
+        </div>
+      }
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="status-dot"></div>
+      <span>System operational</span>
+    </div>
+
+  </aside>
+
+
+  <main class="main-content">
+
+    <header class="topbar">
+
+      <div class="breadcrumb">
+        IPL AUCTION
+        <span>/</span>
+        <strong>Overview</strong>
+      </div>
+
+      <div class="user-area">
+
+        @if (authState.currentUser; as user) {
+          <img
+            class="user-avatar"
+            [src]="user.attributes.picture"
+            [alt]="user.attributes.name"
+          />
+
+          <div class="user-details">
+            <span class="user-name">
+              {{ user.attributes.name }}
+            </span>
+
+            <span class="user-role">
+              {{ authState.role }}
+            </span>
+          </div>
+        }
+
+      </div>
+
+    </header>
+
+
+    <section class="page-content">
+      <router-outlet />
+    </section>
+
+  </main>
+
+</div>
