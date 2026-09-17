@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
 import { forkJoin } from 'rxjs';
 
@@ -16,6 +16,8 @@ import { PlayerService } from '../../core/player/player.service';
 })
 export class Dashboard {
   readonly authState = inject(AuthState);
+
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   private readonly auctionService = inject(AuctionService);
   private readonly teamService = inject(TeamService);
@@ -62,6 +64,8 @@ export class Dashboard {
 
       this.isLoading = false;
 
+      this.changeDetectorRef.markForCheck();
+
       console.log('Dashboard: isLoading =', this.isLoading);
     },
 
@@ -74,6 +78,8 @@ export class Dashboard {
 
       this.isLoading = false;
       this.hasError = true;
+
+      this.changeDetectorRef.markForCheck();
     },
 
     complete: () => {
