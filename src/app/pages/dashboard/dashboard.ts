@@ -35,28 +35,50 @@ export class Dashboard {
   }
 
   private loadDashboardData(): void {
-    forkJoin({
-      auctions: this.auctionService.getAllAuctions(),
-      teams: this.teamService.getAllTeams(),
-      players: this.playerService.getAllPlayers(),
-    }).subscribe({
-      next: ({ auctions, teams, players }) => {
-        this.auctions = auctions;
-        this.teamCount = teams.length;
-        this.playerCount = players.length;
 
-        this.currentAuction =
-          auctions.find((auction) => auction.status === 'LIVE') ?? auctions[0] ?? null;
+  console.log('Dashboard: starting data load');
 
-        this.isLoading = false;
-      },
+  forkJoin({
+    auctions: this.auctionService.getAllAuctions(),
+    teams: this.teamService.getAllTeams(),
+    players: this.playerService.getAllPlayers(),
+  }).subscribe({
 
-      error: (error) => {
-        console.error('Failed to load dashboard data', error);
+    next: ({ auctions, teams, players }) => {
 
-        this.isLoading = false;
-        this.hasError = true;
-      },
-    });
-  }
+      console.log('Dashboard: forkJoin completed');
+      console.log('Auctions:', auctions);
+      console.log('Teams:', teams);
+      console.log('Players:', players);
+
+      this.auctions = auctions;
+      this.teamCount = teams.length;
+      this.playerCount = players.length;
+
+      this.currentAuction =
+        auctions.find(
+          auction => auction.status === 'LIVE'
+        ) ?? auctions[0] ?? null;
+
+      this.isLoading = false;
+
+      console.log('Dashboard: isLoading =', this.isLoading);
+    },
+
+    error: (error) => {
+
+      console.error(
+        'Dashboard: forkJoin failed',
+        error
+      );
+
+      this.isLoading = false;
+      this.hasError = true;
+    },
+
+    complete: () => {
+      console.log('Dashboard: subscription completed');
+    }
+  });
+}
 }
